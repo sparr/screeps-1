@@ -63,5 +63,20 @@ module.exports.loop = function() {
     });
   } else {
     main();
+    if (Game.time % 5 === 0) {
+      _.each(Game.creeps, (c) => {
+        if (c.memory.role !== 'sourcer' && c.memory.last && c.memory.last.pos2 &&
+          c.memory.last.pos3 && c.memory.last.pos1.x === c.memory.last.pos2.x &&
+          c.memory.last.pos1.x === c.memory.last.pos3.x && c.memory.last.pos1.y === c.memory.last.pos2.y &&
+          c.memory.last.pos1.y === c.memory.last.pos3.y) {
+          c.move(_.random(1, 8));
+        }
+      });
+      _.each(Game.creeps, (c) => {
+        if (c.memory.role === 'harvester' || c.memory.role === 'planer') {
+          c.upgradeController(Game.rooms.W46S8.controller);
+        }
+      });
+    }
   }
 };

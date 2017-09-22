@@ -127,6 +127,9 @@ Room.prototype.inRoom = function(creepMemory, amount = 1) {
  * @return {boolean}                    if the spawn is not allow, it will return false.
  */
 Room.prototype.checkRoleToSpawn = function(role, amount, targetId, targetRoom, level, base, additionalMemory = {}) {
+  if (role === 'carry') {
+    amount = 1;
+  }
   const creepMemory = this.creepMem(role, targetId, targetRoom, level, base);
   Object.assign(creepMemory, additionalMemory);
   if (this.inQueue(creepMemory) || this.inRoom(creepMemory, amount)) {
